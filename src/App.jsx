@@ -1,10 +1,11 @@
-import { createSignal } from 'solid-js';
-import { Router, Route, A } from "@solidjs/router";
+import { createSignal, lazy } from 'solid-js';
+import { HashRouter, Route, A } from "@solidjs/router";
 
 import banner from './assets/banner.png';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-import Product from './pages/Product';
+
+const Home =  lazy(() => import('./pages/Home'));
+const Cart =  lazy(() => import('./pages/Cart'));
+const Product =  lazy(() => import('./pages/Product'));
 
 function App() {
   const [darkTheme, setDarkTheme] = createSignal(false)
@@ -32,11 +33,12 @@ function App() {
       
       <img class="rounded-md" src={banner} alt="site banner" />
 
-      <Router>
-        <Route path="/" component={Home} />
+
+      <HashRouter>        
         <Route path="/cart" component={Cart} />
+        <Route path="/" component={Home} />
         <Route path="/product/:id" component={Product} />
-      </Router>
+      </HashRouter>
       
     </div>
   );
